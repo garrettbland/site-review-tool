@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 
 const Home = () => {
-    const handleSubmit = () => {
-        alert(`Doesn't do anything yet 🥺`)
-    }
+    const Canvas = useRef()
+    const [isCanvasEnabled, setIsCanvasEnabled] = useState(false)
 
-    const handleDraw = () => {
-        alert(`Don't yell at me, it does nothing`)
+    const handleSubmit = () => {
+        alert(
+            `Doesn't do anything yet. Will save answers and drawing`
+        )
     }
 
     return (
@@ -36,7 +37,7 @@ const Home = () => {
                                 placeholder="Your answer & comments here"
                                 className="bg-white focus:bg-yellow-100 resize-none w-full border border-gray-200 rounded-lg focus:outline-none p-3 focus:border-gray-900"
                             />
-                            <p class="text-gray-700 pl-px antialiased">
+                            <p className="text-gray-700 pl-px antialiased">
                                 Extra instructions could go here
                             </p>
                         </div>
@@ -58,7 +59,7 @@ const Home = () => {
                     <div>
                         <button
                             onClick={() => handleSubmit()}
-                            className="text-lg font-semibold text-black bg-teal-300 px-6 py-2 rounded-full transform hover:-rotate-5"
+                            className="text-lg font-semibold text-black bg-teal-300 px-6 py-2 rounded-full transform hover:scale-110"
                         >
                             Sumbit Review
                         </button>
@@ -69,46 +70,86 @@ const Home = () => {
                 <div className="mb-6 flex flex-row relative">
                     <div className="w-12 h-8">
                         <img
-                            className="transform rotate-180"
+                            style={{
+                                transform: 'scale(-1, 1)',
+                                transform: 'rotate(180deg)',
+                            }}
                             src="https://img.pngio.com/up-hand-drawn-arrow-icons-download-free-vector-icons-noun-project-hand-drawn-arrows-png-200_200.png"
                         />
                     </div>
                     <div className="flex-1">
                         <p>
-                            Bring your thoughts to life. Click on the
-                            pen tool to draw all over.
+                            Bring your thoughts to life, draw all over
+                            the image below.
                         </p>
                     </div>
                 </div>
-                <div className="relative">
-                    <button
-                        onClick={() => handleDraw()}
-                        className="w-10 h-10 bg-indigo-500 text-white shadow-xl rounded-full p-2 absolute top-0 left-0 -ml-4 -mt-4 transform hover:scale-110 -rotate-6 hover:-rotate-11 z-20"
-                    >
-                        <svg
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            class="css-i6dzq1"
-                        >
-                            <path d="M12 20h9"></path>
-                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                        </svg>
-                    </button>
-                    <div className="z-10">
+                <div>
+                    <div>
                         <CanvasDraw
                             style={{
                                 width: '100%',
                             }}
+                            ref={(canvasObj) => {
+                                Canvas.current = canvasObj
+                            }}
+                            onChange={() => setIsCanvasEnabled(true)}
                             brushColor="rgba(245, 75, 66, 0.9)"
-                            brushRadius="5"
+                            brushRadius={5}
                             imgSrc="https://images.unsplash.com/photo-1504737105874-7b985700477b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
                         />
+                        <div className="mt-3 flex justify-between">
+                            <div className="flex items-center">
+                                <button
+                                    className="rounded-full px-3 py-1 bg-gray-300 text-black font-semibold transform hover:scale-110 mr-2"
+                                    onClick={() =>
+                                        Canvas.current.undo()
+                                    }
+                                >
+                                    Undo
+                                </button>
+                                <button
+                                    className="rounded-full h-8 w-8 transform hover:scale-110 bg-red-500 border-2 border-white"
+                                    onClick={() =>
+                                        alert(
+                                            'color changing coming soon maybe?'
+                                        )
+                                    }
+                                ></button>
+                            </div>
+                            <button
+                                className={`flex flex-row items-center rounded-full px-3 py-1 bg-gray-300 text-black font-semibold transform hover:scale-110`}
+                                onClick={() => Canvas.current.clear()}
+                            >
+                                <span className="w-5 h-5">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        width="20"
+                                        height="20"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="css-i6dzq1"
+                                    >
+                                        <line
+                                            x1="18"
+                                            y1="6"
+                                            x2="6"
+                                            y2="18"
+                                        ></line>
+                                        <line
+                                            x1="6"
+                                            y1="6"
+                                            x2="18"
+                                            y2="18"
+                                        ></line>
+                                    </svg>
+                                </span>
+                                Clear
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
