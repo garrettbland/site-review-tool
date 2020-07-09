@@ -1,4 +1,5 @@
 import React from 'react'
+import CanvasDraw from 'react-canvas-draw'
 
 const Home = () => {
     const handleSubmit = () => {
@@ -82,7 +83,7 @@ const Home = () => {
                 <div className="relative">
                     <button
                         onClick={() => handleDraw()}
-                        className="w-10 h-10 bg-indigo-500 text-white shadow-xl rounded-full p-2 absolute top-0 left-0 -ml-4 -mt-4 transform hover:scale-110 -rotate-6 hover:-rotate-11"
+                        className="w-10 h-10 bg-indigo-500 text-white shadow-xl rounded-full p-2 absolute top-0 left-0 -ml-4 -mt-4 transform hover:scale-110 -rotate-6 hover:-rotate-11 z-20"
                     >
                         <svg
                             viewBox="0 0 24 24"
@@ -99,10 +100,16 @@ const Home = () => {
                             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                         </svg>
                     </button>
-                    <img
-                        className="rounded"
-                        src="https://images.unsplash.com/photo-1504737105874-7b985700477b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
-                    />
+                    <div className="z-10">
+                        <CanvasDraw
+                            style={{
+                                width: '100%',
+                            }}
+                            brushColor="rgba(245, 75, 66, 0.9)"
+                            brushRadius="5"
+                            imgSrc="https://images.unsplash.com/photo-1504737105874-7b985700477b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
