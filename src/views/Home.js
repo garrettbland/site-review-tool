@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 
+const brushColors = ['#f56565', '#81e69d', '#4299E1']
+
 const Home = () => {
     const Canvas = useRef()
     const [isCanvasEnabled, setIsCanvasEnabled] = useState(false)
+    const [brushColorIndex, setBrushColorIndex] = useState(0)
 
     const handleSubmit = () => {
         alert(
@@ -11,8 +14,25 @@ const Home = () => {
         )
     }
 
+    const selectNewColor = () => {
+        /**
+         * Chooses next color in array
+         */
+        if (brushColorIndex + 1 === brushColors.length) {
+            /**
+             * Reset to beginning
+             */
+            setBrushColorIndex(0)
+        } else {
+            /**
+             * Set to next color in array
+             */
+            setBrushColorIndex((currentIndex) => currentIndex + 1)
+        }
+    }
+
     return (
-        <div className="grid grid-cols-2 gap-1 max-w-screen-xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1 max-w-screen-xl mx-auto">
             <div className="p-6">
                 <div className="card--body p-6">
                     <div className="mb-6">
@@ -94,7 +114,7 @@ const Home = () => {
                                 Canvas.current = canvasObj
                             }}
                             onChange={() => setIsCanvasEnabled(true)}
-                            brushColor="rgba(245, 75, 66, 0.9)"
+                            brushColor={brushColors[brushColorIndex]}
                             brushRadius={5}
                             imgSrc="https://images.unsplash.com/photo-1504737105874-7b985700477b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
                         />
@@ -109,12 +129,14 @@ const Home = () => {
                                     Undo
                                 </button>
                                 <button
-                                    className="rounded-full h-8 w-8 transform hover:scale-110 bg-red-500 border-2 border-white"
-                                    onClick={() =>
-                                        alert(
-                                            'color changing coming soon maybe?'
-                                        )
-                                    }
+                                    style={{
+                                        backgroundColor:
+                                            brushColors[
+                                                brushColorIndex
+                                            ],
+                                    }}
+                                    className="rounded-full h-8 w-8 transform hover:scale-110 border-2 border-white"
+                                    onClick={() => selectNewColor()}
                                 ></button>
                             </div>
                             <button
@@ -127,11 +149,11 @@ const Home = () => {
                                         width="20"
                                         height="20"
                                         stroke="currentColor"
-                                        stroke-width="2"
+                                        strokeWidth="2"
                                         fill="none"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="css-i6dzq1"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="css-i6dzq1"
                                     >
                                         <line
                                             x1="18"
