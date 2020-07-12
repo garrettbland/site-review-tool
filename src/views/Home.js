@@ -109,6 +109,7 @@ const Home = () => {
                         <CanvasDraw
                             style={{
                                 width: '100%',
+                                height: '400px',
                             }}
                             ref={(canvasObj) => {
                                 Canvas.current = canvasObj
@@ -116,7 +117,7 @@ const Home = () => {
                             onChange={() => setIsCanvasEnabled(true)}
                             brushColor={brushColors[brushColorIndex]}
                             brushRadius={5}
-                            imgSrc="https://images.unsplash.com/photo-1504737105874-7b985700477b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
+                            imgSrc="https://images.unsplash.com/photo-1504737105874-7b985700477b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=contain&w=600&q=60"
                         />
                         <div className="mt-3 flex justify-between">
                             <div className="flex items-center">
